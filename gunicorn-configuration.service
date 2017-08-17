@@ -1,0 +1,17 @@
+[Unit]
+Description=Unit file for session7 website
+After=network.target
+
+[Service]
+Type=simple
+User=gunicorn
+Group=gunicorn
+WorkingDirectory=/home/username/session7/firstproject
+PIDFile=/home/username/session7.pid
+ExecStart=/usr/local/bin/gunicorn --name firstproject --bind=127.0.0.1:9000 --workers 2 --user gunicorn firstproject.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+Privatetmp=true
+
+[Install]
+WantedBy=multi-user.target
